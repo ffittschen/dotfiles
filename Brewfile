@@ -18,7 +18,7 @@ brew 'ruby-build'
 
 # Development
 brew 'carthage'
-brew 'swiftlint'
+# brew 'swiftlint' # Can't be installed without Xcode being installed first
 
 # Apps
 #cask 'dash'

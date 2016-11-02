@@ -19,12 +19,12 @@ fi
 brew update
 
 # Upgrade any already-installed formulae.
-brew upgrade --all
+brew upgrade
 
 # Install all our dependencies with bundle (See Brewfile)
 brew tap homebrew/bundle
 echo "Installing applications specified in the Brewfile"
-brew bundle
+brew bundle -v
 
 # Accept the Xcode license agreement
 echo "Accepting the Xcode license agreement"
