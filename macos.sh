@@ -34,10 +34,14 @@ for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
 		"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
 		"/System/Library/CoreServices/Menu Extras/User.menu"
 done
+# Menu bar: hide Siri icon
+defaults write com.apple.Siri StatusMenuVisible -int 0
+
 defaults write com.apple.systemuiserver menuExtras -array \
 	"/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
 	"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
 	"/Applications/Utilities/Keychain Access.app/Contents/Resources/Keychain.menu" \
+	"/System/Library/CoreServices/Menu Extras/VPN.menu" \
 	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
 	"/System/Library/CoreServices/Menu Extras/Clock.menu"
 
@@ -273,10 +277,38 @@ find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -dele
 sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
 sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator (Watch).app" "/Applications/Simulator (Watch).app"
 
+# Wipe all (default) app icons from the Dock
+defaults write com.apple.dock persistent-apps -array
+
+# Fill the dock (Requires https://github.com/kcrawford/dockutil)
+dockutil --add /Applications/System\ Preferences.app --no-restart
+dockutil --add /Applications/Safari.app --no-restart
+dockutil --add /Applications/Calendar.app --no-restart
+dockutil --add /Applications/Mail.app --no-restart
+dockutil --add /Applications/App\ Store.app --no-restart
+dockutil --add '' --type spacer --section apps --no-restart
+dockutil --add /Applications/Messages.app --no-restart
+dockutil --add /Applications/WhatsApp.app --no-restart
+dockutil --add /Applications/Slack.app --no-restart
+dockutil --add /Applications/HipChat.app --no-restart
+dockutil --add '' --type spacer --section apps --no-restart
+dockutil --add /Applications/1Password.app --no-restart
+dockutil --add /Applications/Spotify.app --no-restart
+dockutil --add /Applications/Preview.app --no-restart
+dockutil --add '' --type spacer --section apps --no-restart
+dockutil --add /Applications/iTerm2.app --no-restart
+dockutil --add /Applications/Sublime\ Text.app --no-restart
+dockutil --add /Applications/SourceTree.app --no-restart
+dockutil --add /Applications/Xcode.app --no-restart
+dockutil --add /Applications/IntelliJ\ IDEA.app --no-restart
+dockutil --add /Users/ffittschen/Downloads --view fan --display folder --sort dateadded --section others
+
 # Add a spacer to the left side of the Dock (where the applications are)
 defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
 # Add a spacer to the right side of the Dock (where the Trash is)
 defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
+
+
 
 # Hot corners
 # Possible values:
@@ -430,11 +462,17 @@ defaults write com.apple.ical "first minute of work hours" 540
 defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
 
 ###############################################################################
-# Date & Time                                                                 #
+# Menubar item configuration                                                  #
 ###############################################################################
 
 # Custom DateFormat
-#defaults write com.apple.menuextra.clock DateFormat "EEE MMM d  H:mm"
+defaults write com.apple.menuextra.clock DateFormat "EEE d MMM  HH:mm"
+
+# Show battery percentage
+defaults write com.apple.menuextra.battery ShowPercent -bool true
+
+# Show connected time for VPN
+defaults write com.apple.networkConnect VPNShowTime -int 1
 
 ###############################################################################
 # Mac App Store                                                               #

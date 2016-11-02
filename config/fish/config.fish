@@ -1,14 +1,6 @@
 # aliases
 . ~/.config/fish/aliases.fish
 
-# z config
-set -gx Z_SCRIPT_PATH /usr/local/etc/profile.d/z.sh
-
-# Fisherman config and init
-set fisher_home ~/.local/share/fisherman
-set fisher_config ~/.config/fisherman
-source $fisher_home/config.fish
-
 # Disable fish greeting
 set fish_greeting ""
 

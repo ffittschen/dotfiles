@@ -8,12 +8,12 @@ brew 'fish'
 
 # Install binaries
 #brew 'fzf'
+brew 'dockutil'
 brew 'imagemagick'
 brew 'mackup'
 brew 'mas'
 brew 'node'
 brew 'rbenv'
-brew 'ruby-build'
 #brew 'z'
 
 # Development
@@ -58,10 +58,6 @@ cask 'sourcetree'
 cask 'spotify'
 cask 'sublime-text'
 cask 'teamspeak-client'
-cask 'teamviewer'
-cask 'vagrant'
-cask 'virtualbox'
-cask 'virtualbox-extension-pack'
 cask 'vlc'
 cask 'whatsapp'
 

@@ -15,8 +15,11 @@ Follow these install instructions to setup a new Mac.
 1. Clone this repo: `git clone https://github.com/ffittschen/dotfiles.git`
 1. Accept installing the Command Line Developer Tools, in case git is not installed yet.
 1. Make sure to provide the storage location of Mackup. (In my case, this is a private GitHub repo, so I have to clone it in this step)
+1. Sign in to the Mac App Store, as it is required for `mas` in the `Brewfile`.
 1. Run the `dots.sh` script. You can pass parameters to run just parts of the script. Run all: `./dots.sh all`. Run `macosprep.sh`, `dotbot.sh`, `brew.sh`, `shell.sh`, `mackup.sh` and `macos.sh`: `./dots.sh macosprep dotbot brew shell mackup macos`
+1. Open the System Preferences and provide Accessibility access to `Alfred`.
 1. Copy public and private SSH keys to `~/.ssh` and make sure the permissions are set to `600`
+1. Run the `Little Snitch` installer at `/usr/local/Caskroom/little-snitch/#{version}/Little Snitch Installer.app`.
 1. Restart your computer to finalize the process
 
 Your Mac is now ready to use!
