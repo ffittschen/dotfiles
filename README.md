@@ -15,8 +15,9 @@ Follow these install instructions to setup a new Mac.
 ```
 $ git clone https://github.com/ffittschen/dotfiles.git
 ```
-1. Make sure to provide the storage location of Mackup. (In my case, this is a private GitHub repo, so I have to clone it in this step)
-1. Run the `dots.sh` script. You can pass parameters to run just parts of the script:
+2. Accept installing the Command Line Developer Tools, in case git is not installed yet.
+3. Make sure to provide the storage location of Mackup. (In my case, this is a private GitHub repo, so I have to clone it in this step)
+4. Run the `dots.sh` script. You can pass parameters to run just parts of the script:
 Run all:
 ```
 $ ./dots.sh all
@@ -25,7 +26,7 @@ Run `macosprep.sh`, `dotbot.sh`, `brew.sh`, `shell.sh`, `mackup.sh` and `macos.s
 ```
 $ ./dots.sh macosprep dotbot brew shell mackup macos
 ```
-1. Copy public and private SSH keys to `~/.ssh` and make sure the permissions are set to `600`
-1. Restart your computer to finalize the process
+5. Copy public and private SSH keys to `~/.ssh` and make sure the permissions are set to `600`
+6. Restart your computer to finalize the process
 
 Your Mac is now ready to use!

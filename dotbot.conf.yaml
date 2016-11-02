@@ -6,6 +6,7 @@
 
 - link:
     ~/.dotfiles: ''
+    ~/.mackup: '../mackup-local'
     ~/.config/fish/aliases.fish:
       create: true
       path: config/fish/aliases.fish
