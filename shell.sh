@@ -19,3 +19,8 @@ if test ! $(which fisher); then
 	echo "Install fisherman"
 	curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
 fi
+
+# Initialize fisher (This downloads all plugins specified in the fishfile)
+echo "Initializing fisher"
+fish -c "fisher"
+
