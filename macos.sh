@@ -42,6 +42,7 @@ defaults write com.apple.systemuiserver menuExtras -array \
 	"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
 	"/Applications/Utilities/Keychain Access.app/Contents/Resources/Keychain.menu" \
 	"/System/Library/CoreServices/Menu Extras/VPN.menu" \
+	"/System/Library/CoreServices/Menu Extras/Volume.menu"\
 	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
 	"/System/Library/CoreServices/Menu Extras/Clock.menu"
 
@@ -113,15 +114,15 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 # Enable press-and-hold for keys to type umlauts
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool true
 
-# Set a blazingly fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -int 1
+# Set a fast keyboard repeat rate
+defaults write NSGlobalDomain KeyRepeat -int 4
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
 # `Inches`, `en_GB` with `en_US`, and `true` with `false`.
-defaults write NSGlobalDomain AppleLanguages -array "en" "us"
-defaults write NSGlobalDomain AppleLocale -string "en_US@currency=EUR"
+defaults write NSGlobalDomain AppleLanguages -array "en-US"
+defaults write NSGlobalDomain AppleLocale -string "en_DE"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
@@ -235,7 +236,7 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 ###############################################################################
 
 # Dark menu bar and dock
-defaults write $HOME/Library/Preferences/.GlobalPreferences.plist AppleInterfaceTheme -string "Dark"
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
@@ -296,7 +297,7 @@ dockutil --add /Applications/1Password.app --no-restart
 dockutil --add /Applications/Spotify.app --no-restart
 dockutil --add /Applications/Preview.app --no-restart
 dockutil --add '' --type spacer --section apps --no-restart
-dockutil --add /Applications/iTerm2.app --no-restart
+dockutil --add /Applications/iTerm.app --no-restart
 dockutil --add /Applications/Sublime\ Text.app --no-restart
 dockutil --add /Applications/SourceTree.app --no-restart
 dockutil --add /Applications/Xcode.app --no-restart
@@ -395,6 +396,9 @@ defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 # Update extensions automatically
 defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 
+# Safari opens with all windows of the last session
+defaults write com.apple.safari AlwaysRestoreSessionAtLaunch -int 1
+
 ###############################################################################
 # Mail                                                                        #
 ###############################################################################
@@ -450,13 +454,16 @@ defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
 # Show 24 hours a day
-defaults write com.apple.ical "number of hours displayed" 24
+defaults write com.apple.ical "number of hours displayed" 16
 
 # Week should start on Monday
 defaults write com.apple.ical "first day of the week" 1
 
 # Day starts at 9AM
 defaults write com.apple.ical "first minute of work hours" 540
+
+# Show week numbers
+defaults write com.apple.ical "Show Week Numbers" 1
 
 # Auto-play videos when opened with QuickTime Player
 defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
@@ -526,6 +533,9 @@ defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
+
+# TODO: ask for RETURN to proceed
+read -n 1 -s -p "Press any key to continue and kill all affected processes"
 
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
 	"Dock" "Finder" "Mail" "Messages" "Photos" "Safari" "SystemUIServer" \

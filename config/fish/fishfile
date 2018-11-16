@@ -1,5 +1,4 @@
-omf/theme-agnoster
-fzf
-git_util
-git_porcelain
-z
+jethrokuan/z
+junegunn/fzf
+jorgebucaran/fish-git-util
+oh-my-fish/theme-agnoster

@@ -48,15 +48,6 @@ function runDots() {
             echo ""
             ./shell.sh
         fi
-        if [ $ARG == "macos" ] || [ $ARG == "all" ]; then
-            # Run the macos.sh Script
-            echo ""
-            echo "------------------------------"
-            echo "Setting sensible macOS defaults."
-            echo "------------------------------"
-            echo ""
-            ./macos.sh
-        fi
         if [ $ARG == "mackup" ] || [ $ARG == "all" ]; then
             # Run the mackup.sh Script
             echo ""
@@ -65,6 +56,15 @@ function runDots() {
             echo "------------------------------"
             echo ""
             ./mackup.sh
+        fi
+        if [ $ARG == "macos" ] || [ $ARG == "all" ]; then
+            # Run the macos.sh Script
+            echo ""
+            echo "------------------------------"
+            echo "Setting sensible macOS defaults."
+            echo "------------------------------"
+            echo ""
+            ./macos.sh
         fi
     done
 

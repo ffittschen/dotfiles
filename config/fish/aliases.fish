@@ -1,1 +1,6 @@
 alias lsa "ls -Alh"
+alias be "bundle exec"
+alias g "gittower ."
+alias s "subl ."
+alias o "open ."
+alias bu "brew update; and brew upgrade; and brew cleanup"

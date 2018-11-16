@@ -1,34 +1,47 @@
 [user]
 	name = Florian Fittschen
 	email = ffittschen@gmail.com
-	signkey = 5BD2B364
+	signingkey = 9D95E0A55BD2B364
+
 [core]
-	excludesfile = /Users/ffittschen/.gitignore_global
-[difftool "sourcetree2"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree2"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[difftool "sourcetree"]
-	cmd = /Applications/IntelliJ\\ IDEA.app/Contents/MacOS/idea diff $(cd $(dirname \"$LOCAL\") && pwd)/$(basename \"$LOCAL\") $(cd $(dirname \"$REMOTE\") && pwd)/$(basename \"$REMOTE\")
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[push]
-	default = current
+	# Use custom `.gitignore`
+	excludesfile = ~/.gitignore
+	# Make `git rebase` safer on OS X
+	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+	trustctime = false
+
+	editor = code --wait
+	attributesfile = ~/.gitattributes
+
 [color]
-	ui = true
-[filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+	# Use colors in Git commands that are capable of colored output when
+	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+	ui = auto
+
+[commit]
+	gpgsign = true
+
+[credential]
+	helper = osxkeychain
+
+[diff]
+	# Detect copies as well as renames
+	renames = copies
+
+[diff "sketchtool"]
+  textconv = "sketchtool dump"
+  cachetextconv = true
+  binary = true
+
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
 	required = true
-[diff "pandoc"]
-  textconv=pandoc --to=markdown
-  prompt = false
-[alias]
-  wdiff = diff --word-diff=color --unified=1
+
+[merge]
+	# Include summaries of merged commits in newly created merge commit messages
+	log = true
+
+[gpg]
+	program = /usr/local/bin/gpg

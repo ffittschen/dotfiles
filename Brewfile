@@ -1,5 +1,6 @@
 # Taps
-tap 'caskroom/cask'
+brew tap homebrew/cask-versions
+tap 'caskroom/fonts'
 tap 'homebrew/bundle'
 tap 'homebrew/services'
 
@@ -18,48 +19,24 @@ brew 'rbenv'
 
 # Development
 brew 'carthage'
+brew 'git'
+brew 'yarn'
 # brew 'swiftlint' # Can't be installed without Xcode being installed first
 
 # Apps
-#cask 'dash'
-#cask 'paw'
-#cask 'tower'
 cask 'alfred'
 cask 'appcleaner'
 cask 'bitbar'
-cask 'controlplane'
-cask 'cyberduck'
 cask 'docker'
 cask 'dropbox'
 cask 'firefox'
-cask 'github-desktop'
-cask 'google-chrome'
-cask 'google-drive'
-cask 'gpgtools'
-cask 'handbrake'
-cask 'hipchat'
-cask 'intellij-idea'
 cask 'iterm2'
-cask 'java'
-cask 'jdownloader'
 cask 'little-snitch'
-cask 'logitech-gaming-software'
 cask 'microsoft-office'
-cask 'netspot'
-cask 'raindropio'
-cask 'reflector'
-cask 'rescuetime'
-cask 'scroll-reverser'
-cask 'sequel-pro'
-cask 'skala-preview'
-cask 'skype'
 cask 'slack'
-cask 'sourcetree'
 cask 'spotify'
-cask 'sublime-text'
-cask 'teamspeak-client'
-cask 'vlc'
-cask 'whatsapp'
+cask 'setapp'
+cask 'tower2'
 
 # Quicklook
 cask 'provisionql'
@@ -70,18 +47,19 @@ cask 'qlstephen'
 cask 'quicklook-csv'
 cask 'quicklook-json'
 
+# Fonts
+cask 'font-meslo-lg-for-powerline'
+
 # Install Mac App Store apps
-mas '1Password', id: 443987910
+mas '1Blocker', id: 1107421413
+mas '1Password 7', id: 1333542190
 mas 'Affinity Photo', id: 824183456
 mas 'Amphetamine', id: 937984704
-mas 'BetterSnapTool', id: 417375580
 mas 'Blackmagic Disk Speed Test', id: 425264550
-mas 'DaisyDisk', id: 411643860
-mas 'Giphy Capture', id: 668208984
+mas 'DevCleaner', id: 1388020431
 mas 'Growl', id: 467939042
+mas 'IsItPrivate', id: 1440322906
 mas 'Keynote', id: 409183694
-mas 'Marked 2', id: 890031187
-mas 'PhotoSweeper', id: 463362050
-mas 'The Unarchiver', id: 425424353
-mas 'Wunderlist', id: 410628904
+mas 'Speedtest', id: 1153157709
+mas 'Things3', id: 904280696
 mas 'Xcode', id: 497799835

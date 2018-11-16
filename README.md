@@ -13,7 +13,6 @@ Follow these install instructions to setup a new Mac.
 
 1. Install the Command Line Developer Tools: `xcode-select --install`
 1. Clone this repo: `git clone https://github.com/ffittschen/dotfiles.git`
-1. Accept installing the Command Line Developer Tools, in case git is not installed yet.
 1. Make sure to provide the storage location of Mackup. (In my case, this is a private GitHub repo, so I have to clone it in this step)
 1. Sign in to the Mac App Store, as it is required for `mas` in the `Brewfile`.
 1. Run the `dots.sh` script. You can pass parameters to run just parts of the script. Run all: `./dots.sh all`. Run `macosprep.sh`, `dotbot.sh`, `brew.sh`, `shell.sh`, `mackup.sh` and `macos.sh`: `./dots.sh macosprep dotbot brew shell mackup macos`

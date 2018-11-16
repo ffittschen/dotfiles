@@ -17,10 +17,12 @@ chsh -s $(which fish)
 # Install fisherman (http://fisherman.sh)
 if test ! $(which fisher); then
 	echo "Install fisherman"
-	curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
+	curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 fi
 
 # Initialize fisher (This downloads all plugins specified in the fishfile)
 echo "Initializing fisher"
 fish -c "fisher"
+
+
 
