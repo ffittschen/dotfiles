@@ -8,5 +8,6 @@ script/install-vscode-extensions
 
 if [ "$SHELL" != "/usr/local/bin/fish" ]
 then
-  chsh -s /usr/local/bin/fish ffittschen
+  grep -qxF '/usr/local/bin/fish' /etc/shells || echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
+  chsh -s /usr/local/bin/fish
 fi
