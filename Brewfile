@@ -33,6 +33,7 @@ brew "pngquant"
 brew "ruby-build"
 brew "rbenv"
 brew "rbenv-default-gems"
+brew "ripgrep"
 brew "ruby"
 brew "ruby@2.5"
 brew "shellcheck"
@@ -53,6 +54,7 @@ cask "bitbar"
 cask "docker"
 cask "dropbox"
 cask "firefox"
+cask "flux"
 cask "font-meslo-lg-for-powerline"
 cask "fork"
 cask "gpgtools"
@@ -104,4 +106,3 @@ mas "com.vidblishen.jsonhelper", id: 453114608
 mas "cx.c3.theunarchiver", id: 425424353
 mas "io.quicktype.quicktype", id: 1330801220
 mas "io.raindrop.mac", id: 957810159
-mas "net.shinyfrog.bear", id: 1091189122

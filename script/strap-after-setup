@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Run by Strap after installing Brewfile dependencies
+
+cd $(dirname $0)/..
+
+script/extract-onepassword-secrets
+script/install-vscode-extensions
+
+if [ "$SHELL" != "/usr/local/bin/fish" ]
+then
+  chsh -s /usr/local/bin/fish ffittschen
+fi
