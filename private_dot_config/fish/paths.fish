@@ -1,5 +1,8 @@
 # A collection of paths that should be added
 
+# chezmoi
+fish_add_path ~/.local/bin
+
 # yarn
 fish_add_path ~/.config/yarn/global/node_modules/.bin
 

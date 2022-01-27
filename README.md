@@ -5,10 +5,17 @@ and dotfiles, which will restore my settings.
 
 These dotfiles are managed using [chezmoi](https://www.chezmoi.io)
 
-<!-- ## Clean macOS Setup
+## Clean macOS Setup
 
 Follow these install instructions to setup a new Mac.
 
-TODO
+1. Launch Terminal.app
+2. Run the [chezmoi installation command](https://www.chezmoi.io/install/): `sh -c "$(curl -fsLS chezmoi.io/get)" -- -b "$HOME/.local/bin" init --apply ffittschen`
+3. Open System Preferences > Security & Privacy
+4. Allow Full Disk Access for iTerm.app
+5. Launch iTerm.app
+6. Configure 1password-cli: `op signin my.1password.com <email>`
+7. Establish 1Password session: `eval (op signin my)`
+8. Run `chezmoi update` to complete the setup
 
-Your Mac is now ready to use! -->
+Your Mac is now ready to use!
