@@ -1,0 +1,90 @@
+[user]
+	name = Florian Fittschen
+	{{ if .work -}}
+	email = {{ (onepasswordDetailsFields "g2aebt3pfbdsnmfxtydd6ll7ce" .work_vault).username.value }}
+	{{ else if .personal -}}
+	email = {{ (onepasswordDetailsFields "554xae6ewnhpjn4d3qji57bbpq" .personal_vault).username.value }}
+	{{ end -}}
+	signingkey = 3FCFFA810BECE56961D98C589D95E0A55BD2B364
+
+[core]
+	# Global `.gitignore`
+	excludesfile = ~/.config/git/ignore
+	
+	# Don't prompt for commit messages for merge commits.
+	mergeoptions = --no-edit
+	commitGraph = true
+
+	# Make `git rebase` safer on OS X
+	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+	trustctime = false
+
+	editor = code --wait
+	attributesfile = ~/.gitattributes
+
+[apply]
+	# Cleanup whitespace by default when apply patches.
+	whitespace = fix
+
+[color]
+	# Use colors in Git commands that are capable of colored output when
+	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+	ui = auto
+
+[commit]
+	gpgsign = true
+
+[credential]
+	helper = osxkeychain
+
+[diff]
+	# Use the slower but better patience diff algorithm
+	algorithm = patience
+	# Use new diff algorithm to make e.g. function diffs look better.
+	compactionheuristic = true
+	# Detect copies as well as renames
+	renames = copies
+
+[fetch]
+	# Always prune when fetching (and pulling).
+	prune = 1
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[gpg]
+        program = /usr/local/bin/gpg
+
+[help]
+	# Autocorrect mistyped commands.
+	autocorrect = 1
+
+[init]
+        defaultBranch = main
+
+[merge]
+	# Include summaries of merged commits in newly created merge commit messages
+	log = true
+
+[mergetool]
+	# Don't prompt before opening the merge tool.
+	prompt = false
+	# Don't keep backups of the merge tool inputs.
+	keepBackup = false
+	# Don't keep the merge tool temporary input/output files.
+	keepTemporaries = false
+
+[push]
+	# Push to the set upstream branch being tracked by default.
+	default = simple
+
+[pull]
+	# Default to rebasing on pulls
+	rebase = true
+
+[rebase]
+	# Run `git stash` if needed before a `git rebase`
+	autoStash = true

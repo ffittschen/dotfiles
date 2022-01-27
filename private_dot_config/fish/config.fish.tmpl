@@ -1,0 +1,29 @@
+# aliases
+. ~/.config/fish/aliases.fish
+
+# secrets
+. ~/.config/fish/secrets.fish
+
+# environment variables
+. ~/.config/fish/environment_variables.fish
+
+# paths
+. ~/.config/fish/paths.fish
+
+# Homebrew
+{{ if eq .chezmoi.os "darwin" -}}
+{{   if lookPath "/opt/homebrew/bin/brew" -}}
+eval (/opt/homebrew/bin/brew shellenv)
+{{   else if lookPath "/usr/local/bin/brew" -}}
+eval (/usr/local/bin/brew shellenv)
+{{   end -}}
+{{ end -}}
+
+# Disable fish greeting
+set fish_greeting ""
+
+# Initialize rbenv
+status --is-interactive; and source (rbenv init -|psub)
+
+# Initialize iTerm shell integration (https://iterm2.com/documentation-shell-integration.html)
+source ~/.iterm2_shell_integration.fish

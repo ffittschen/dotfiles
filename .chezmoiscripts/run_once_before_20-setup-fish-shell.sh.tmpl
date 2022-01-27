@@ -1,0 +1,17 @@
+{{- if (and (eq .chezmoi.os "darwin") (or .work .personal)) -}}
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ if lookPath "/opt/homebrew/bin/fish" -}}
+FISH_PATH=/opt/homebrew/bin/fish
+{{ else if lookPath "/usr/local/bin/fish" -}}
+FISH_PATH=/usr/local/bin/fish
+{{ end }}
+if [ "$SHELL" != "$FISH_PATH" ]
+then
+  grep -qxF "$FISH_PATH" /etc/shells || echo "$FISH_PATH" | sudo tee -a /etc/shells
+  chsh -s "$FISH_PATH"
+fi
+
+{{ end -}}
