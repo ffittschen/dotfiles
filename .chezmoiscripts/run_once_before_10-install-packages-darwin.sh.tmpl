@@ -3,6 +3,11 @@
 
 set -eufo pipefail
 
+{{ $taps := list
+    "homebrew/cask-drivers"
+    "homebrew/cask-fonts"
+    "homebrew/cask-versions"
+    "robotsandpencils/made" -}}
 {{ $brews := list
     "aria2"
     "curl"
@@ -55,7 +60,6 @@ set -eufo pipefail
     "transmit"
     "visual-studio-code"
     "vlc" -}}
-
 {{ $apps := dict
     "Amphetamine" "937984704"
     "Buildwatch" "1523347474"
@@ -86,6 +90,8 @@ set -eufo pipefail
 {{ end -}}
 
 {{ if .work -}}
+{{ $taps = concat $taps (list
+    "phrase/brewed") -}}
 {{ $brews = concat $brews (list
     "phrase/brewed/phrase") -}}
 {{ $casks = concat $casks (list
@@ -104,6 +110,9 @@ set -eufo pipefail
 {{ end -}}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end -}}
 {{ range ($brews | sortAlpha | uniq) -}}
 brew "{{ . }}"
 {{ end -}}
