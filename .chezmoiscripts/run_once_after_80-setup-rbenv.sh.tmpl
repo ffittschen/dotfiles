@@ -1,0 +1,9 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/usr/bin/env bash
+
+# Install rbenv-default-gems plugin
+git clone https://github.com/rbenv/rbenv-default-gems.git $(rbenv root)/plugins/rbenv-default-gems 2> /dev/null || git -C $(rbenv root)/plugins/rbenv-default-gems pull
+
+rbenv install --skip-existing {{ .ruby_version }}
+rbenv global {{ .ruby_version }}
+{{ end -}}

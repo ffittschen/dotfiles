@@ -1,0 +1,64 @@
+{{- $headless := false -}}{{/* true if this machine does not have a screen and keyboard */}}
+{{- $ephemeral := false -}}{{/* true if this machine is ephemeral, e.g. a cloud or VM instance */}}
+{{- $work := false -}}{{/* true if this machine should have work secrets */}}
+{{- $personal := false -}}{{/* true if this machine should have personal secrets */}}
+{{- "" -}}
+
+{{/* detect GitHub codespaces, VSCode remote containers, Docker containers, Multipass VMs, and Vagrant boxes */}}
+{{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (eq .chezmoi.username "root" "ubuntu" "vagrant" "vscode") -}}
+{{-   $headless = true -}}
+{{-   $ephemeral = true -}}
+{{- end -}}
+
+{{/* work around unreliable hostname on darwin */}}
+{{- $hostname := .chezmoi.hostname -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $computerName := output "scutil" "--get" "ComputerName" | trim -}}
+{{-   if eq $computerName "Florian’s MacBook Pro" -}}
+{{-     $hostname = "florians-mbp-touchbar" -}}
+{{-   else -}}
+{{-     $hostname = $computerName -}}
+{{-   end -}}
+{{- end -}}
+
+{{- if not $ephemeral -}}
+{{-   if eq $hostname "raspberrypi" -}}
+{{-     $headless = true -}}
+{{-     $personal = true -}}
+{{-   else if eq $hostname "florians-mbp-touchbar" -}}
+{{-     $personal = true -}}
+{{-     $work = true -}}
+{{-   else if eq $hostname "mac80687" -}}
+{{-     $work = true -}}
+{{-   else if eq $hostname "Yolo" -}}
+{{-     $personal = true -}}
+{{-   else if stdinIsATTY -}}
+{{-     if hasKey . "headless" -}}
+{{-       $headless = .headless -}}
+{{-     else -}}
+{{-       $headless = promptBool "headless" -}}
+{{-     end -}}
+{{-     if hasKey . "ephemeral" -}}
+{{-       $ephemeral = .ephemeral -}}
+{{-     else -}}
+{{-       $ephemeral = promptBool "ephemeral" -}}
+{{-     end -}}
+{{-   else -}}
+{{-     $headless = true -}}
+{{-     $ephemeral = true -}}
+{{-   end -}}
+{{- end -}}
+
+data:
+  headless: {{ $headless }}
+  hostname: {{ $hostname }}
+  ephemeral: {{ $ephemeral }}
+  personal: {{ $personal }}
+  work: {{ $work }}
+{{- if $personal }}
+  personal_vault: 3t7eslc5offk6xz225ckp7pa3q
+{{- end }}
+{{- if $work }}
+  work_vault: audfdmntuu7yzje5vdwobzcvg4
+{{- end }}
+  ruby_version: '3.0.3'

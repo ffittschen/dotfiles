@@ -1,0 +1,5 @@
+{{- if .work -}}
+{{-   onepasswordDocument "av7vwrlwpbec7ckwnsfyosmmyu" .work_vault -}}
+{{- else if .personal -}}
+{{-   onepasswordDocument "xb4nvtbnlvd3thu77frb6tgg4i" .personal_vault -}}
+{{- end -}}

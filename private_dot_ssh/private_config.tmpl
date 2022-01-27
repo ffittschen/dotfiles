@@ -1,0 +1,11 @@
+Host *
+{{- if eq .chezmoi.os "darwin" }}
+	AddKeysToAgent yes
+	UseKeychain yes
+{{- end }}
+	IdentityFile ~/.ssh/id_ed25519
+	IdentityFile ~/.ssh/id_rsa
+	ControlMaster auto
+{{- if eq .chezmoi.os "darwin" }}
+	ControlPath /tmp/ssh-%r@%h:%p.socket
+{{- end }}

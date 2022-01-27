@@ -1,0 +1,117 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ $brews := list
+    "aria2"
+    "curl"
+    "dockutil"
+    "exa"
+    "fish"
+    "fisher"
+    "gh"
+    "git"
+    "git-lfs"
+    "graphviz"
+    "htop"
+    "httpie"
+    "jq"
+    "mas"
+    "mint"
+    "ncdu"
+    "node"
+    "rbenv"
+    "ripgrep"
+    "speedtest-cli"
+    "swiftformat"
+    "swiftlint"
+    "tree"
+    "wget"
+    "robotsandpencils/made/xcodes"
+    "xz" -}}
+{{ $casks := list
+    "1password"
+    "1password-cli"
+    "appcleaner"
+    "arq"
+    "daisydisk"
+    "deckset"
+    "firefox"
+    "gpg-suite-no-mail"
+    "iterm2"
+    "font-meslo-for-powerline"
+    "handbrake"
+    "nextcloud"
+    "notion"
+    "pdf-expert"
+    "raycast"
+    "setapp"
+    "sf-symbols"
+    "soundsource"
+    "suspicious-package"
+    "spotify"
+    "tower"
+    "transmit"
+    "visual-studio-code"
+    "vlc" -}}
+
+{{ $apps := dict
+    "Amphetamine" "937984704"
+    "Buildwatch" "1523347474"
+    "Craft" "1487937127"
+    "DevCleaner" "1388020431"
+    "Developer" "640199958"
+    "Disk Speed Test" "425264550"
+    "Is It Private?" "1440322906"
+    "Keynote" "409183694"
+    "Playgrounds" "1496833156"
+    "Save to Raindrop.io" "1549370672"
+    "Slack" "803453959"
+    "SourceryPro" "1561780836"
+    "Speedtest" "1153157709"
+    "Things" "904280696" -}}
+
+{{ if .personal -}}
+{{ $brews = concat $brews (list
+    "yt-dlp") -}}
+{{ $casks = concat $casks (list
+    "balenaetcher"
+    "soulver"
+    "teamviewer"
+    "whatsapp") -}}
+{{ $apps = merge $apps (dict
+    "Numbers" "409203825"
+    "Pages" "409201541") -}}
+{{ end -}}
+
+{{ if .work -}}
+{{ $brews = concat $brews (list
+    "phrase/brewed/phrase") -}}
+{{ $casks = concat $casks (list
+    "homebrew/cask-drivers/elgato-camera-hub"
+    "homebrew/cask-drivers/elgato-stream-deck"
+    "figma"
+    "microsoft-teams"
+    "onedrive"
+    "remote-desktop-manager-free"
+    "zoom") -}}
+{{ $apps = merge $apps (dict
+    "Affinity Photo" "824183456"
+    "CatoClient" "1128104033"
+    "Keeper Password Manager" "414781829"
+    "Microsoft Word" "462054704") -}}
+{{ end -}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+{{ range (keys $apps | sortAlpha | uniq) -}}
+mas "{{ . }}", id: {{ get $apps . }}
+{{ end -}}
+EOF
+{{ end -}}
