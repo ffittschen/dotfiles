@@ -8,9 +8,8 @@ Host *
 {{- if eq .chezmoi.os "darwin" }}
 	AddKeysToAgent yes
 	UseKeychain yes
+	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 {{- end }}
-	IdentityFile ~/.ssh/id_ed25519
-	IdentityFile ~/.ssh/id_rsa
 	ControlMaster auto
 {{- if eq .chezmoi.os "darwin" }}
 	ControlPath /tmp/ssh-%r@%h:%p.socket
