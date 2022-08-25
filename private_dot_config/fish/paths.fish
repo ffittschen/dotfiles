@@ -11,3 +11,6 @@ fish_add_path /usr/local/opt/openjdk/bin
 
 # Add VS Code cli to PATH
 fish_add_path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+# Add mint to PATH
+fish_add_path ~/.mint/bin
