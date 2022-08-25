@@ -14,8 +14,8 @@ Follow these install instructions to setup a new Mac.
 3. Open System Preferences > Security & Privacy
 4. Allow Full Disk Access for iTerm.app
 5. Launch iTerm.app
-6. Configure 1password-cli: `op signin my.1password.com <email>`
-7. Establish 1Password session: `eval (op signin my)`
+6. Enable biometric unlock in the 1Password app.
+7. Establish 1Password session: `eval (op signin)`
 8. Run `chezmoi update` to complete the setup
 
 Your Mac is now ready to use!
