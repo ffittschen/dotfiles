@@ -1,3 +1,9 @@
+{{ if .work -}}
+Host github.com
+	Hostname ssh.github.com
+	Port 443
+	User git
+{{ end }}
 Host *
 {{- if eq .chezmoi.os "darwin" }}
 	AddKeysToAgent yes
