@@ -1,0 +1,6 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/usr/bin/env bash
+
+mise use -g ruby@{{ .ruby_version }}
+mise use -g node@{{ .node_version }}
+{{ end -}}
