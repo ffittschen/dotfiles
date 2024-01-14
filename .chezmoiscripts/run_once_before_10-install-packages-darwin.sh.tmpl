@@ -10,6 +10,7 @@ set -eufo pipefail
     "robotsandpencils/made" -}}
 {{ $brews := list
     "aria2"
+    "cloc"
     "curl"
     "dockutil"
     "exa"
@@ -28,12 +29,15 @@ set -eufo pipefail
     "node"
     "rbenv"
     "ripgrep"
+    "robotsandpencils/made/xcodes"
     "speedtest-cli"
     "swiftformat"
     "swiftlint"
     "tree"
     "wget"
-    "robotsandpencils/made/xcodes"
+    "wise"
+    "xcbeautify"
+    "xclogparser"
     "xz" -}}
 {{ $casks := list
     "1password"
@@ -42,20 +46,18 @@ set -eufo pipefail
     "arq"
     "daisydisk"
     "deckset"
-    "firefox"
-    "gpg-suite-no-mail"
-    "iterm2"
+    "elgato-stream-deck"
     "font-meslo-for-powerline"
+    "gpg-suite-no-mail"
     "handbrake"
-    "nextcloud"
-    "notion"
-    "pdf-expert"
+    "iterm2"
     "raycast"
     "setapp"
     "sf-symbols"
+    "slack"
     "soundsource"
-    "suspicious-package"
     "spotify"
+    "suspicious-package"
     "tower"
     "transmit"
     "visual-studio-code"
@@ -63,17 +65,12 @@ set -eufo pipefail
 {{ $apps := dict
     "1Password for Safari" "1569813296"
     "Amphetamine" "937984704"
-    "Buildwatch" "1523347474"
-    "Craft" "1487937127"
     "DevCleaner" "1388020431"
     "Developer" "640199958"
     "Disk Speed Test" "425264550"
-    "Is It Private?" "1440322906"
     "Keynote" "409183694"
     "Playgrounds" "1496833156"
     "Save to Raindrop.io" "1549370672"
-    "Slack" "803453959"
-    "SourceryPro" "1561780836"
     "Speedtest" "1153157709"
     "Things" "904280696" -}}
 
@@ -81,33 +78,33 @@ set -eufo pipefail
 {{ $brews = concat $brews (list
     "yt-dlp") -}}
 {{ $casks = concat $casks (list
-    "balenaetcher"
+    "brave-browser"
     "soulver"
     "teamviewer"
-    "whatsapp") -}}
+    "tresorit") -}}
 {{ $apps = merge $apps (dict
     "Numbers" "409203825"
     "Pages" "409201541") -}}
 {{ end -}}
 
 {{ if .work -}}
-{{ $taps = concat $taps (list
-    "phrase/brewed") -}}
 {{ $brews = concat $brews (list
-    "phrase/brewed/phrase") -}}
+    "actionlint"
+    "ansible"
+    "aws-iam-authenticator"
+    "awscli"
+    "needle"
+    "phrase-cli"
+    "protolint") -}}
 {{ $casks = concat $casks (list
-    "homebrew/cask-drivers/elgato-camera-hub"
-    "homebrew/cask-drivers/elgato-stream-deck"
     "figma"
     "microsoft-teams"
     "onedrive"
     "remote-desktop-manager-free"
     "zoom") -}}
 {{ $apps = merge $apps (dict
-    "Affinity Photo" "824183456"
     "CatoClient" "1128104033"
-    "Keeper Password Manager" "414781829"
-    "Microsoft Word" "462054704") -}}
+    "Keeper Password Manager" "414781829") -}}
 {{ end -}}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
