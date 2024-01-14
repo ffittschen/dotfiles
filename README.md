@@ -10,7 +10,7 @@ These dotfiles are managed using [chezmoi](https://www.chezmoi.io)
 Follow these install instructions to setup a new Mac.
 
 1. Launch Terminal.app
-2. Run the [chezmoi installation command](https://www.chezmoi.io/install/): `sh -c "$(curl -fsLS chezmoi.io/get)" -- -b "$HOME/.local/bin" init --apply ffittschen`
+2. Run the [chezmoi installation command](https://www.chezmoi.io/install/): `sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init ffittschen`
 3. Open System Preferences > Security & Privacy
 4. Allow Full Disk Access for iTerm.app
 5. Launch iTerm.app
