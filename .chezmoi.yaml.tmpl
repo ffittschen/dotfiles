@@ -25,12 +25,9 @@
 {{-   if eq $hostname "raspberrypi" -}}
 {{-     $headless = true -}}
 {{-     $personal = true -}}
-{{-   else if eq $hostname "florians-mbp-touchbar" -}}
+{{-   else if eq $hostname "Naboo" -}}
 {{-     $personal = true -}}
-{{-     $work = true -}}
-{{-   else if eq $hostname "mac80687" -}}
-{{-     $work = true -}}
-{{-   else if eq $hostname "Yolo" -}}
+{{-   else if eq $hostname "Mandalore" -}}
 {{-     $personal = true -}}
 {{-   else if stdinIsATTY -}}
 {{-     if hasKey . "headless" -}}
@@ -42,6 +39,11 @@
 {{-       $ephemeral = .ephemeral -}}
 {{-     else -}}
 {{-       $ephemeral = promptBool "ephemeral" -}}
+{{-     end -}}
+{{-     if hasKey . "work" -}}
+{{-       $work = .work -}}
+{{-     else -}}
+{{-       $work = promptBool "work" -}}
 {{-     end -}}
 {{-   else -}}
 {{-     $headless = true -}}
@@ -61,4 +63,5 @@ data:
 {{- if $work }}
   work_vault: audfdmntuu7yzje5vdwobzcvg4
 {{- end }}
-  ruby_version: '3.0.3'
+  ruby_version: '3.3'
+  node_version: '20'
