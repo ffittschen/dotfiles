@@ -13,9 +13,9 @@
 # Homebrew
 {{ if eq .chezmoi.os "darwin" -}}
 {{   if lookPath "/opt/homebrew/bin/brew" -}}
-eval (/opt/homebrew/bin/brew shellenv)
+{{     output "/opt/homebrew/bin/brew" "shellenv" "fish" | trim }}
 {{   else if lookPath "/usr/local/bin/brew" -}}
-eval (/usr/local/bin/brew shellenv)
+{{     output "/usr/local/bin/brew" "shellenv" "fish" | trim }}
 {{   end -}}
 {{ end -}}
 
