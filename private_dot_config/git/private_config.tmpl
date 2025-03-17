@@ -36,6 +36,12 @@
 
 [credential]
 	helper = osxkeychain
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [diff]
 	# Use the slower but better patience diff algorithm
@@ -56,14 +62,14 @@
 	required = true
 
 [gpg]
-        program = /usr/local/bin/gpg
+	program = /usr/local/bin/gpg
 
 [help]
 	# Autocorrect mistyped commands.
 	autocorrect = 1
 
 [init]
-        defaultBranch = main
+	defaultBranch = main
 
 [merge]
 	# Include summaries of merged commits in newly created merge commit messages

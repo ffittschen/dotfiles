@@ -1,4 +1,4 @@
-eval "$(rbenv init -)"
+eval "$(/opt/homebrew/bin/mise activate bash)"
 
 {{ if eq .chezmoi.os "darwin" -}}
 {{   if lookPath "/opt/homebrew/bin/brew" -}}
