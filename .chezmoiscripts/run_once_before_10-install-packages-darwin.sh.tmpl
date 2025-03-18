@@ -77,10 +77,8 @@ set -eufo pipefail
 
 {{ if .work -}}
 {{ $taps = concat $taps (list
-    "a7ex/formulae"
     "hashicorp/tap"
-    "hmarr/tap"
-    "twittemb/formulae") -}}
+    "hmarr/tap") -}}
 {{ $brews = concat $brews (list
     "actionlint"
     "ansible"
@@ -92,10 +90,8 @@ set -eufo pipefail
     "docker-compose"
     "docker-machine"
     "protolint"
-    "a7ex/formulae/xcresultparser"
     "hashicorp/tap/packer"
-    "hmarr/tap/codeowners"
-    "twittemb/formulae/xcodecoverageconverter") -}}
+    "hmarr/tap/codeowners") -}}
 {{ $casks = concat $casks (list
     "figma"
     "microsoft-teams"
