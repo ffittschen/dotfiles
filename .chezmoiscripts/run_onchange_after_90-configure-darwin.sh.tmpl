@@ -1,4 +1,4 @@
-{{ if (eq .chezmoi.os "darwin") -}}
+{{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
 
 set -eufo pipefail
@@ -56,7 +56,7 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 10
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
 # `Inches`, `en_GB` with `en_US`, and `true` with `false`.
 defaults write NSGlobalDomain AppleLanguages -array "en-US" "de"
-defaults write NSGlobalDomain AppleLocale -string "en_DE"
+defaults write NSGlobalDomain AppleLocale -string "en_US@rg=dezzzz"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
@@ -127,19 +127,25 @@ defaults write com.apple.dock persistent-others -array
 # Fill the dock (Requires https://github.com/kcrawford/dockutil)
 dockutil --add /System/Applications/System\ Settings.app --no-restart
 dockutil --add /Applications/Safari.app --no-restart
-dockutil --add /System/Applications/Reminders.app --no-restart
-dockutil --add /System/Applications/Calendar.app --no-restart
-dockutil --add /System/Applications/Mail.app --no-restart
-dockutil --add /System/Applications/Messages.app --no-restart
 dockutil --add /System/Applications/App\ Store.app --no-restart
-defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="small-spacer-tile";}'
 dockutil --add /Applications/1Password.app --no-restart
 dockutil --add /Applications/Spotify.app --no-restart
+
+defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="small-spacer-tile";}'
+dockutil --add /System/Applications/Calendar.app --no-restart
+dockutil --add /System/Applications/Reminders.app --no-restart
+dockutil --add /System/Applications/Notes.app --no-restart
+dockutil --add /Applications/Obsidian.app --no-restart
+
 defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="small-spacer-tile";}'
 dockutil --add /Applications/Slack.app --no-restart
 {{ if .work -}}
 dockutil --add /Applications/Microsoft\ Teams.app --no-restart
+{{ else if .personal -}}
+dockutil --add /System/Applications/Mail.app --no-restart
+dockutil --add /System/Applications/Messages.app --no-restart
 {{ end -}}
+
 defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="small-spacer-tile";}'
 dockutil --add /Applications/Tower.app --no-restart
 dockutil --add /Applications/Visual\ Studio\ Code.app --no-restart
@@ -147,6 +153,8 @@ dockutil --add /Applications/Visual\ Studio\ Code.app --no-restart
 dockutil --add /Applications/Figma.app --no-restart
 {{ end -}}
 dockutil --add /Applications/iTerm.app --no-restart
+
+dockutil --add {{ .chezmoi.homeDir -}}/Pictures/Screenshots --view fan --display folder --sort dateadded --section others
 dockutil --add {{ .chezmoi.homeDir -}}/Downloads --view fan --display folder --sort dateadded --section others
 
 # Add a spacer to the left side of the Dock (where the applications are)
