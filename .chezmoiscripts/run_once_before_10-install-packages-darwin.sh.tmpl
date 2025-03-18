@@ -4,15 +4,12 @@
 set -eufo pipefail
 
 {{ $taps := list
-    "homebrew/cask-fonts"
-    "homebrew/cask-versions"
-    "robotsandpencils/made" -}}
+    "xcodesorg/made" -}}
 {{ $brews := list
     "aria2"
     "cloc"
     "curl"
     "dockutil"
-    "exa"
     "fish"
     "fisher"
     "gh"
@@ -21,90 +18,95 @@ set -eufo pipefail
     "graphviz"
     "htop"
     "httpie"
+    "hyperfine"
+    "ijq"
     "jq"
     "mas"
-    "mint"
     "mise"
     "ncdu"
-    "ripgrep"
-    "robotsandpencils/made/xcodes"
+    "shellcheck"
     "speedtest-cli"
-    "swiftformat"
-    "swiftlint"
     "tree"
-    "wget"
+    "unxip"
     "xcbeautify"
     "xclogparser"
-    "xz" -}}
+    "xcodesorg/made/xcodes" -}}
 {{ $casks := list
     "1password"
     "1password-cli"
     "appcleaner"
-    "arq"
-    "daisydisk"
-    "deckset"
+    "copilot-for-xcode"
+    "devcleaner"
     "elgato-stream-deck"
     "font-meslo-for-powerline"
     "gpg-suite-no-mail"
     "handbrake"
     "iterm2"
-    "raycast"
+    "notion"
     "rectangle"
-    "setapp"
     "sf-symbols"
     "soundsource"
     "spotify"
     "suspicious-package"
     "tower"
     "transmit"
-    "visual-studio-code"
-    "vlc" -}}
+    "visual-studio-code" -}}
 {{ $apps := dict
     "1Password for Safari" "1569813296"
-    "Amphetamine" "937984704"
-    "DevCleaner" "1388020431"
     "Developer" "640199958"
     "Disk Speed Test" "425264550"
-    "Keynote" "409183694"
-    "Playgrounds" "1496833156"
-    "Save to Raindrop.io" "1549370672"
-    "Slack" "803453959"
-    "Speedtest" "1153157709"
-    "Things" "904280696" -}}
+    "Save to Raindrop.io" "1549370672" -}}
 
 {{ if .personal -}}
 {{ $brews = concat $brews (list
     "yt-dlp") -}}
 {{ $casks = concat $casks (list
+    "arq"
     "brave-browser"
-    "soulver"
-    "teamviewer"
-    "tresorit") -}}
+    "daisydisk"
+    "deckset"
+    "pdf-expert"
+    "proton-drive"
+    "raycast"
+    "setapp"
+    "soulver") -}}
 {{ $apps = merge $apps (dict
     "Numbers" "409203825"
     "Pages" "409201541") -}}
 {{ end -}}
 
 {{ if .work -}}
+{{ $taps = concat $taps (list
+    "a7ex/formulae"
+    "hashicorp/tap"
+    "hmarr/tap"
+    "twittemb/formulae") -}}
 {{ $brews = concat $brews (list
     "actionlint"
     "ansible"
     "aws-iam-authenticator"
     "awscli"
-    "needle"
-    "phrase-cli"
-    "protolint") -}}
+    "colima"
+    "crowdin"
+    "docker"
+    "docker-compose"
+    "docker-machine"
+    "protolint"
+    "a7ex/formulae/xcresultparser"
+    "hashicorp/tap/packer"
+    "hmarr/tap/codeowners"
+    "twittemb/formulae/xcodecoverageconverter") -}}
 {{ $casks = concat $casks (list
     "figma"
     "microsoft-teams"
     "onedrive"
+    "orka3"
+    "periphery"
     "remote-desktop-manager-free"
     "zoom") -}}
-{{ $apps = merge $apps (dict
-    "Keeper Password Manager" "414781829") -}}
 {{ end -}}
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
+brew bundle --file=/dev/stdin <<EOF
 {{ range ($taps | sortAlpha | uniq) -}}
 tap "{{ . }}"
 {{ end -}}
