@@ -11,7 +11,7 @@ Follow these install instructions to setup a new Mac.
 
 1. Launch Terminal.app
 2. Install [Homebrew](https://brew.sh)
-3. Run the [chezmoi installation command](https://www.chezmoi.io/install/): `sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init ffittschen`
+3. Run the [chezmoi installation command](https://www.chezmoi.io/install/): `sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply ffittschen`
 4. Open System Preferences > Security & Privacy
 5. Allow Full Disk Access for iTerm.app
 6. Launch iTerm.app
