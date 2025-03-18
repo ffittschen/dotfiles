@@ -9,14 +9,15 @@ These dotfiles are managed using [chezmoi](https://www.chezmoi.io)
 
 Follow these install instructions to setup a new Mac.
 
-1. Launch Terminal.app
-2. Install [Homebrew](https://brew.sh)
-3. Run the [chezmoi installation command](https://www.chezmoi.io/install/): `sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply ffittschen`
-4. Open System Preferences > Security & Privacy
-5. Allow Full Disk Access for iTerm.app
-6. Launch iTerm.app
-7. Enable biometric unlock in the 1Password app.
-8. Establish 1Password session: `eval (op signin)`
-9. Run `chezmoi update` to complete the setup
+1. Install Xcode through App Store
+2. Launch Terminal.app
+3. Install [Homebrew](https://brew.sh)
+4. Run the [chezmoi installation command](https://www.chezmoi.io/install/): `sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply ffittschen`
+5. Open System Preferences > Security & Privacy
+6. Allow Full Disk Access for iTerm.app
+7. Launch iTerm.app
+8. Enable biometric unlock in the 1Password app.
+9. Establish 1Password session: `eval (op signin)`
+10. Run `chezmoi update` to complete the setup
 
 Your Mac is now ready to use!
