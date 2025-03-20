@@ -147,6 +147,7 @@ dockutil --add /System/Applications/Messages.app --no-restart
 {{ end -}}
 
 defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="small-spacer-tile";}'
+dockutil --add /Applications/Xcode-16.2.0.app --no-restart
 dockutil --add /Applications/Tower.app --no-restart
 dockutil --add /Applications/Visual\ Studio\ Code.app --no-restart
 {{ if .work -}}
