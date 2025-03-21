@@ -13,12 +13,11 @@
 # Homebrew
 {{ if eq .chezmoi.os "darwin" -}}
 {{   if lookPath "/opt/homebrew/bin/brew" -}}
-{{     output "/opt/homebrew/bin/brew" "shellenv" "fish" | trim }}
+eval "$(/opt/homebrew/bin/brew shellenv fish)"
 {{   else if lookPath "/usr/local/bin/brew" -}}
-{{     output "/usr/local/bin/brew" "shellenv" "fish" | trim }}
+eval "$(/usr/local/bin/brew shellenv fish)"
 {{   end -}}
-{{ end -}}
-
+{{ end }}
 # Disable fish greeting
 set fish_greeting ""
 
