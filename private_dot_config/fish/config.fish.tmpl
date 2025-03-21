@@ -1,15 +1,3 @@
-# aliases
-. ~/.config/fish/aliases.fish
-
-# secrets
-. ~/.config/fish/secrets.fish
-
-# environment variables
-. ~/.config/fish/environment_variables.fish
-
-# paths
-. ~/.config/fish/paths.fish
-
 # Homebrew
 {{ if eq .chezmoi.os "darwin" -}}
 if status --is-interactive
@@ -22,6 +10,3 @@ end
 {{ end }}
 # Disable fish greeting
 set fish_greeting ""
-
-# Initialize iTerm shell integration (https://iterm2.com/documentation-shell-integration.html)
-source ~/.iterm2_shell_integration.fish
