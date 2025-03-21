@@ -154,6 +154,9 @@ dockutil --add /Applications/Visual\ Studio\ Code.app --no-restart
 dockutil --add /Applications/Figma.app --no-restart
 {{ end -}}
 dockutil --add /Applications/iTerm.app --no-restart
+{{ if .work -}}
+dockutil --add /Applications/Privileges.app --no-restart
+{{ end -}}
 
 dockutil --add {{ .chezmoi.homeDir -}}/Pictures/Screenshots --view fan --display folder --sort dateadded --section others
 dockutil --add {{ .chezmoi.homeDir -}}/Downloads --view fan --display folder --sort dateadded --section others
