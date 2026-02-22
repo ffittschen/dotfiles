@@ -1,0 +1,5 @@
+# Activate mise when running in Cursor
+if [[ -n "$CURSOR_AGENT" ]]; then
+  eval "$(/opt/homebrew/bin/mise activate zsh --shims)"
+fi
+

@@ -1,0 +1,9 @@
+
+eval "$(mise activate zsh)"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/mc mc
+
+# peon-ping quick controls
+alias peon="bash {{ .chezmoi.homeDir }}/.claude/hooks/peon-ping/peon.sh"
+[ -f {{ .chezmoi.homeDir }}/.claude/hooks/peon-ping/completions.bash ] && source {{ .chezmoi.homeDir }}/.claude/hooks/peon-ping/completions.bash
