@@ -1,4 +1,9 @@
-eval "$(/opt/homebrew/bin/mise activate bash)"
+# Activate mise when running in Cursor
+if [[ -n "$CURSOR_AGENT" ]]; then
+  eval "$(/opt/homebrew/bin/mise activate bash --shims)"
+else
+  eval "$(/opt/homebrew/bin/mise activate bash)"
+fi
 
 {{ if eq .chezmoi.os "darwin" -}}
 {{   if lookPath "/opt/homebrew/bin/brew" -}}
@@ -7,3 +12,5 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(/usr/local/bin/brew shellenv)"
 {{   end -}}
 {{ end -}}
+
+complete -C /opt/homebrew/bin/mc mc
