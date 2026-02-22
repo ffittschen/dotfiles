@@ -3,13 +3,15 @@
 
 set -eufo pipefail
 
-{{ $taps := list
-    "xcodesorg/made" -}}
+{{ $taps := list -}}
 {{ $brews := list
     "aria2"
+    "ast-grep"
     "bat"
     "cloc"
     "curl"
+    "difftastic"
+    "fd"
     "dockutil"
     "eza"
     "fish"
@@ -24,15 +26,20 @@ set -eufo pipefail
     "ijq"
     "jq"
     "mas"
+    "ripgrep"
+    "tokei"
     "mise"
     "ncdu"
     "shellcheck"
     "speedtest-cli"
+    "starship"
     "tree"
     "unxip"
     "xcbeautify"
     "xclogparser"
-    "xcodesorg/made/xcodes" -}}
+    "xcodes"
+    "xq"
+    "zoxide" -}}
 {{ $casks := list
     "1password"
     "1password-cli"
