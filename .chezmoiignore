@@ -1,1 +1,6 @@
 README.md
+.config/mise/conf.d/sixt.toml
+
+{{ if .work -}}
+.config/fish/functions/
+{{ end -}}
