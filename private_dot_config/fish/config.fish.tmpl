@@ -17,3 +17,8 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+starship init fish | source
+
+# peon-ping quick controls
+function peon; bash {{ .chezmoi.homeDir }}/.claude/hooks/peon-ping/peon.sh $argv; end
