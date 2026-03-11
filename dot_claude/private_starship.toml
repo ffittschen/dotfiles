@@ -43,7 +43,7 @@ format = "[ $env_value ]($style)"
 style = "fg:claude bg:claude_bg"
 
 [env_var.CLAUDE_MODEL]
-variable = "CLAUDE_MODEL"
+variable = "CLAUDE_MODEL_DISPLAY_NAME"
 format = "[ $env_value ]($style)"
 style = "fg:model bg:model_bg"
 
