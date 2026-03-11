@@ -1,4 +1,6 @@
 README.md
+AGENTS.md
+CLAUDE.md
 .config/mise/conf.d/sixt.toml
 
 {{ if .work -}}
