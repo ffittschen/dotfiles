@@ -1,0 +1,15 @@
+{{- if not .headless -}}
+#!/usr/bin/env bash
+set -eufo pipefail
+
+command -v claude >/dev/null 2>&1 || exit 0
+
+# Register marketplaces (duplicates are idempotent)
+{{ range .claude_plugins -}}
+claude plugins marketplace add {{ .repo }}
+{{ end }}
+# Install plugins
+{{ range .claude_plugins -}}
+claude plugins install {{ .name }}@{{ .marketplace }}
+{{ end -}}
+{{ end -}}

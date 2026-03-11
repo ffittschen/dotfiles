@@ -17,12 +17,9 @@ managed='
     "padding": 0
   },
   "enabledPlugins": {
-    "swift-lsp@claude-plugins-official": true,
-    "swift-concurrency@swift-concurrency-agent-skill": true,
-    "starship-claude@starship-claude": true,
-    "swiftui-expert@swiftui-expert-skill": true,
-    "swift-testing-expert@swift-testing-agent-skill": true,
-    "skill-creator@claude-plugins-official": true
+{{- range $i, $p := .claude_plugins }}
+    "{{ $p.name }}@{{ $p.marketplace }}": true{{ if not (eq $i (sub (len $.claude_plugins) 1)) }},{{ end }}
+{{- end }}
   },
   "effortLevel": "high"
 }
