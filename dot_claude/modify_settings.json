@@ -1,0 +1,37 @@
+#!/bin/bash
+set -euo pipefail
+
+# Managed Claude Code settings (merges with existing file, preserving unmanaged keys like hooks)
+managed='
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_SHELL": "/bin/zsh"
+  },
+  "attribution": {
+    "pr": ""
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.local/bin/starship-claude",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "swift-lsp@claude-plugins-official": true,
+    "swift-concurrency@swift-concurrency-agent-skill": true,
+    "starship-claude@starship-claude": true,
+    "swiftui-expert@swiftui-expert-skill": true,
+    "swift-testing-expert@swift-testing-agent-skill": true,
+    "skill-creator@claude-plugins-official": true
+  },
+  "effortLevel": "high"
+}
+'
+
+# Read current file from stdin; merge managed keys while preserving unmanaged ones (e.g. hooks)
+current="$(cat)"
+if [ -n "$current" ]; then
+  echo "$current" | jq --argjson managed "$managed" '. + $managed'
+else
+  echo "$managed" | jq .
+fi

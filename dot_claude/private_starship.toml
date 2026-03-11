@@ -1,0 +1,84 @@
+# Minimal Text Template
+"$schema" = "https://starship.rs/config-schema.json"
+
+palette = "custom"
+add_newline = false
+
+# dir git model context cost
+format = """
+[](directory_bg)\
+${env_var.CLAUDE_STAR}\
+$directory\
+(\
+[](bg:directory_bg fg:git_bg)\
+$git_branch$git_status\
+[](fg:git_bg bg:model_bg)\
+)\
+${env_var.CLAUDE_MODEL}\
+[](bg:model_bg fg:context_bg)\
+${env_var.CLAUDE_CONTEXT}\
+[](bg:context_bg fg:cost_bg)\
+${env_var.CLAUDE_COST}\
+[](cost_bg)\
+"""
+
+[directory]
+style = "fg:directory bg:directory_bg"
+format = "[ $path ]($style)"
+truncation_length = 2
+truncate_to_repo = true
+
+[git_branch]
+symbol = ""
+style = "fg:git_branch bg:git_bg"
+format = "[ $symbol$branch]($style)"
+
+[git_status]
+style = "fg:git_status bg:git_bg"
+format = "[($all_status$ahead_behind)]($style)"
+
+[env_var.CLAUDE_STAR]
+variable = "CLAUDE_STAR"
+format = "[ $env_value ]($style)"
+style = "fg:claude bg:claude_bg"
+
+[env_var.CLAUDE_MODEL]
+variable = "CLAUDE_MODEL"
+format = "[ $env_value ]($style)"
+style = "fg:model bg:model_bg"
+
+[env_var.CLAUDE_CONTEXT]
+variable = "CLAUDE_CONTEXT"
+format = "[ $env_value ]($style)"
+style = "fg:context bg:context_bg"
+
+[env_var.CLAUDE_COST]
+variable = "CLAUDE_COST"
+format = "[ $env_value ]($style)"
+style = "fg:cost bg:cost_bg"
+
+## Custom palette
+#
+
+# Catppuccin Mocha
+[palettes.custom]
+
+# Semantic colors for templates
+claude = "#D97757"
+claude_bg = "#1e1e2e"
+
+directory = "#89dceb"
+directory_bg = "#1e1e2e"
+
+git_branch = "#eba0ac"
+git_status = "#f2cdcd"
+git_bg = "#313244"
+
+model = "#74c7ec"
+model_bg = "#1e1e2e"
+
+context = "#fab387"
+context_bg = "#313244"
+
+cost = "#a6e3a1"
+cost_bg = "#45475a"
