@@ -5,11 +5,22 @@ set -eufo pipefail
 command -v claude >/dev/null 2>&1 || exit 0
 
 # Register marketplaces (duplicates are idempotent)
+echo "Registering Claude plugin marketplaces..."
 {{ range .claude_plugins -}}
 claude plugins marketplace add {{ .repo }}
 {{ end }}
 # Install plugins
+echo "Installing Claude plugins..."
 {{ range .claude_plugins -}}
 claude plugins install {{ .name }}@{{ .marketplace }}
-{{ end -}}
+{{ end }}
+# Symlink starship-claude binary for the statusline
+starship_bin=$(find ~/.claude/plugins/cache/starship-claude -name starship-claude -path '*/bin/*' 2>/dev/null | head -1)
+if [ -n "$starship_bin" ]; then
+  echo "Symlinking starship-claude binary to ~/.local/bin/starship-claude..."
+  mkdir -p ~/.local/bin
+  ln -sf "$starship_bin" ~/.local/bin/starship-claude
+else
+  echo "Warning: starship-claude binary not found in plugin cache, skipping symlink."
+fi
 {{ end -}}
