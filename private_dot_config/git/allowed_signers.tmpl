@@ -1,0 +1,7 @@
+{{ if .work -}}
+{{- $principals := printf "%s,%s" (onepasswordDetailsFields "g2aebt3pfbdsnmfxtydd6ll7ce" .work_vault).username.value (onepasswordDetailsFields "pzeet4w5dzesnp3avzdgmqlpla" .work_vault).username.value -}}
+{{ $principals }} ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII7YXe2pppDnBfTcAyTZaMuIYD6nof8BdO4NQtwyYDbf
+{{ $principals }} ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNSQV3YidG7QA0KGFioMfQBtWiCZ2RWNyopp3R7JOi8bfH2nXB3biZosuhQN8MZMG+M5vMpCRaWGzTCrQGXZ1kY=
+{{ else if .personal -}}
+{{ (onepasswordDetailsFields "554xae6ewnhpjn4d3qji57bbpq" .personal_vault).username.value }} ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII7YXe2pppDnBfTcAyTZaMuIYD6nof8BdO4NQtwyYDbf
+{{ end -}}
