@@ -1,61 +1,180 @@
-# Minimal Text Template
+# Minimal Text Template (multiline, no pills)
 "$schema" = "https://starship.rs/config-schema.json"
 
 palette = "custom"
 add_newline = false
 
-# dir git model context cost
+# Layout convention
+# -----------------
+# Line 1:  <folder> <path>  <branch-icon> <branch><git-status>
+# Line 2:  [group 1]   [group 2]   [group 3]
+#   group 1 = ✱ + model              (current model)
+#   group 2 = context % + session $  (per-prompt info)
+#   group 3 = monthly budget bar + reset countdown + monthly cost
+#
+# Spacing rules (tweaked inside each module's `format`, not in this top-level
+# format string — `\` line-continuation in TOML triple-quoted strings strips
+# leading whitespace on the next line, so adjacent modules sit flush):
+#   * 1 space WITHIN a group  -> module formats use either a single trailing
+#                                space (e.g. `[$env_value ]`) on the left side,
+#                                or a single leading space on the right side.
+#   * 3 spaces BETWEEN groups -> group-edge modules carry the extra padding:
+#                                  CLAUDE_MODEL  format ends `   ]`  (3 trailing)
+#                                  CLAUDE_BUDGET_MONTH_{OK,WARN,CRIT}
+#                                                format starts `[   ` (3 leading)
+#   * The group-2 -> group-3 boundary lives on the BUDGET_MONTH_* stanzas (not
+#     CLAUDE_COST) so the gap only renders when a monthly budget is active; in
+#     no-budget setups CLAUDE_COST sits flush with whatever follows.
+#
+# When adding/moving segments: keep the 1-space-internal / 3-space-between
+# convention. If a new segment becomes the first thing in a group, give it
+# 3 leading spaces; if it becomes the last, give it 3 trailing.
 format = """
-[](directory_bg)\
-${env_var.CLAUDE_STAR}\
 $directory\
-(\
-[](bg:directory_bg fg:git_bg)\
-$git_branch$git_status\
-[](fg:git_bg bg:model_bg)\
-)\
-${env_var.CLAUDE_MODEL}\
-[](bg:model_bg fg:context_bg)\
+$git_branch$git_status
+[✱ ](fg:claude)${env_var.CLAUDE_MODEL}\
 ${env_var.CLAUDE_CONTEXT}\
-[](bg:context_bg fg:cost_bg)\
+${env_var.CLAUDE_CONTEXT_OK}\
+${env_var.CLAUDE_CONTEXT_WARN}\
+${env_var.CLAUDE_CONTEXT_CRIT}\
 ${env_var.CLAUDE_COST}\
-[](cost_bg)\
+${env_var.CLAUDE_COST_OK}\
+${env_var.CLAUDE_COST_WARN}\
+${env_var.CLAUDE_COST_CRIT}\
+${env_var.CLAUDE_BUDGET_MONTH_OK}\
+${env_var.CLAUDE_BUDGET_MONTH_WARN}\
+${env_var.CLAUDE_BUDGET_MONTH_CRIT}\
+${env_var.CLAUDE_PACE_MONTH_OK}\
+${env_var.CLAUDE_PACE_MONTH_WARN}\
+${env_var.CLAUDE_PACE_MONTH_CRIT}\
+${env_var.CLAUDE_BUDGET_MONTH_RESET}\
+${env_var.CLAUDE_COST_MONTH}\
 """
 
 [directory]
-style = "fg:directory bg:directory_bg"
-format = "[ $path ]($style)"
+style = "fg:budget_dim"
+format = "[ $path ]($style)"
 truncation_length = 2
 truncate_to_repo = true
 
 [git_branch]
-symbol = ""
-style = "fg:git_branch bg:git_bg"
-format = "[ $symbol$branch]($style)"
+symbol = " "
+style = "fg:budget_dim"
+format = "[$symbol$branch]($style)"
 
 [git_status]
-style = "fg:git_status bg:git_bg"
+style = "fg:budget_dim"
 format = "[($all_status$ahead_behind)]($style)"
 
 [env_var.CLAUDE_STAR]
 variable = "CLAUDE_STAR"
-format = "[ $env_value ]($style)"
-style = "fg:claude bg:claude_bg"
+format = "[$env_value ]($style)"
+style = "fg:claude"
 
 [env_var.CLAUDE_MODEL]
 variable = "CLAUDE_MODEL_DISPLAY_NAME"
-format = "[ $env_value ]($style)"
-style = "fg:model bg:model_bg"
+format = "[$env_value   ]($style)"
+style = "fg:budget_dim"
 
+# Placeholder shown until current_usage tokens are known. Styled the same as
+# the OK tier so a fresh session reads as "0% / fine" rather than "warning".
 [env_var.CLAUDE_CONTEXT]
 variable = "CLAUDE_CONTEXT"
-format = "[ $env_value ]($style)"
-style = "fg:context bg:context_bg"
+format = "[$env_value ]($style)"
+style = "fg:budget_ok"
 
+# Context tier coloring (3-var pattern: replaces CLAUDE_CONTEXT when tokens are known)
+[env_var.CLAUDE_CONTEXT_OK]
+variable = "CLAUDE_CONTEXT_OK"
+format = "[$env_value ]($style)"
+style = "fg:budget_ok"
+
+[env_var.CLAUDE_CONTEXT_WARN]
+variable = "CLAUDE_CONTEXT_WARN"
+format = "[$env_value ]($style)"
+style = "fg:budget_warn"
+
+[env_var.CLAUDE_CONTEXT_CRIT]
+variable = "CLAUDE_CONTEXT_CRIT"
+format = "[$env_value ]($style)"
+style = "fg:budget_crit"
+
+# Session cost
 [env_var.CLAUDE_COST]
 variable = "CLAUDE_COST"
-format = "[ $env_value ]($style)"
-style = "fg:cost bg:cost_bg"
+format = "[$env_value]($style)"
+style = "fg:cost"
+
+# Enterprise cost (3-var pattern: replaces CLAUDE_COST for enterprise/API users)
+[env_var.CLAUDE_COST_OK]
+variable = "CLAUDE_COST_OK"
+format = "[$env_value]($style)"
+style = "fg:budget_ok"
+
+[env_var.CLAUDE_COST_WARN]
+variable = "CLAUDE_COST_WARN"
+format = "[$env_value]($style)"
+style = "fg:budget_warn"
+
+[env_var.CLAUDE_COST_CRIT]
+variable = "CLAUDE_COST_CRIT"
+format = "[$env_value]($style)"
+style = "fg:budget_crit"
+
+# Per-prompt cost delta
+[env_var.CLAUDE_COST_DELTA]
+variable = "CLAUDE_COST_DELTA"
+format = "[ $env_value]($style)"
+style = "fg:budget_dim"
+
+# Daily cost total
+[env_var.CLAUDE_COST_TODAY]
+variable = "CLAUDE_COST_TODAY"
+format = "[│ $env_value]($style)"
+style = "fg:budget_dim"
+
+# Monthly cost total
+[env_var.CLAUDE_COST_MONTH]
+variable = "CLAUDE_COST_MONTH"
+format = "[ $env_value]($style)"
+style = "fg:budget_dim"
+
+# Monthly budget bar (3-var pattern, gated on CLAUDE_MONTHLY_LIMIT_USD)
+# 3 leading spaces = group-2 -> group-3 boundary (see top-of-file convention).
+[env_var.CLAUDE_BUDGET_MONTH_OK]
+variable = "CLAUDE_BUDGET_MONTH_OK"
+format = "[   $env_value]($style)"
+style = "fg:budget_ok"
+
+[env_var.CLAUDE_BUDGET_MONTH_WARN]
+variable = "CLAUDE_BUDGET_MONTH_WARN"
+format = "[   $env_value]($style)"
+style = "fg:budget_warn"
+
+[env_var.CLAUDE_BUDGET_MONTH_CRIT]
+variable = "CLAUDE_BUDGET_MONTH_CRIT"
+format = "[   $env_value]($style)"
+style = "fg:budget_crit"
+
+[env_var.CLAUDE_PACE_MONTH_OK]
+variable = "CLAUDE_PACE_MONTH_OK"
+format = "[ $env_value]($style)"
+style = "fg:budget_ok"
+
+[env_var.CLAUDE_PACE_MONTH_WARN]
+variable = "CLAUDE_PACE_MONTH_WARN"
+format = "[ $env_value]($style)"
+style = "fg:budget_warn"
+
+[env_var.CLAUDE_PACE_MONTH_CRIT]
+variable = "CLAUDE_PACE_MONTH_CRIT"
+format = "[ $env_value]($style)"
+style = "fg:budget_crit"
+
+[env_var.CLAUDE_BUDGET_MONTH_RESET]
+variable = "CLAUDE_BUDGET_MONTH_RESET"
+format = "[ $env_value]($style)"
+style = "fg:budget_dim"
 
 ## Custom palette
 #
@@ -82,3 +201,9 @@ context_bg = "#313244"
 
 cost = "#a6e3a1"
 cost_bg = "#45475a"
+
+# Budget intelligence colors
+budget_ok = "#a6e3a1"
+budget_warn = "#f9e2af"
+budget_crit = "#f38ba8"
+budget_dim = "#6c7086"
