@@ -29,6 +29,7 @@ gdu = "5.39.0"
 "aqua:XcodesOrg/xcodes" = "2.1.0"
 "conda:git" = "2.56.0"
 "conda:curl" = "8.23.0"
+fnox = "1.50.0"
 
 [settings]
 experimental = true
