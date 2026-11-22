@@ -28,7 +28,9 @@ Common types: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`. Scope is optio
 
 ## CI & Pushing
 
-Always run a local build (and tests if applicable) before pushing code to remote. Never push without verifying the build passes locally first.
+Run the local build, and tests if there are any, before every push.
+
+On a feature branch, once they pass, commit and push without asking. In a private or internal repo (`gh repo view --json visibility`), also open a draft PR with `/create-pr`, and end the turn by saying what you did rather than asking whether to. In a public repo, ask before opening the PR. Ask first before anything others would read as finished, or that is hard to undo: marking a PR ready, merging or enabling auto-merge, force-pushing, deleting branches or worktrees, and posting reviews or comments under my account.
 
 **Stacks:** after rebasing a stack, run the full build and tests only on the top branch; it contains every layer below it. For each lower branch, build and test only the targets its own diff touches, so each layer still compiles on its own.
 
