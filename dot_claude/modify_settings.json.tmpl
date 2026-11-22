@@ -13,8 +13,7 @@ managed='
   },
   "statusLine": {
     "type": "command",
-    "command": "~/.local/bin/starship-claude",
-    "padding": 0
+    "command": "~/Code/_forks/starship-claude/plugin/bin/starship-claude"
   },
   "enabledPlugins": {
 {{- range $i, $p := .claude_plugins }}
@@ -25,10 +24,11 @@ managed='
 }
 '
 
-# Read current file from stdin; merge managed keys while preserving unmanaged ones (e.g. hooks)
+# Read current file from stdin; deep-merge managed keys so unmanaged ones survive,
+# including machine-local entries inside env and enabledPlugins
 current="$(cat)"
 if [ -n "$current" ]; then
-  echo "$current" | jq --argjson managed "$managed" '. + $managed'
+  echo "$current" | jq --argjson managed "$managed" '. * $managed'
 else
   echo "$managed" | jq .
 fi

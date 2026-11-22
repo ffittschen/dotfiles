@@ -2,6 +2,7 @@ README.md
 AGENTS.md
 CLAUDE.md
 .config/mise/conf.d/sixt.toml
+.config/fnox/
 
 {{ if .work -}}
 .config/fish/functions/

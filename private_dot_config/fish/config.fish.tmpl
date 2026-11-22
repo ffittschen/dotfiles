@@ -13,9 +13,8 @@ set fish_greeting ""
 
 # pnpm
 set -gx PNPM_HOME "$HOME/Library/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
-end
+# Append so mise-managed tools keep precedence over pnpm globals
+fish_add_path --global --append --path $PNPM_HOME
 # pnpm end
 
 starship init fish | source
@@ -26,4 +25,24 @@ function peon; bash {{ .chezmoi.homeDir }}/.claude/hooks/peon-ping/peon.sh $argv
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
-{{ end -}}
+{{ end }}
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH {{ .chezmoi.homeDir }}/.lmstudio/bin
+# End of LM Studio CLI section
+
+# >>> mise:activate >>> managed by mise — do not edit between markers
+if status is-interactive
+    mise activate fish | source
+else
+    mise activate fish --shims | source
+end
+# <<< mise:activate <<<
+
+# >>> otty shell integration >>>
+# Added by Otty — toggle in Settings > Shell > Shell Integration.
+# Inert unless launched by Otty (it sets $OTTY_SHELL_INTEGRATION).
+if test -n "$OTTY_SHELL_INTEGRATION" -a -r "$OTTY_SHELL_INTEGRATION/otty-integration.fish"
+    source "$OTTY_SHELL_INTEGRATION/otty-integration.fish"
+end
+# <<< otty shell integration <<<

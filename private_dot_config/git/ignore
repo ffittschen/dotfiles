@@ -32,3 +32,5 @@ vendor/ruby/
 vendor/*/vendor/ruby/
 
 **/.claude/settings.local.json
+
+**/.claude/.cc-writes/

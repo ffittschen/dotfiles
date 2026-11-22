@@ -1,5 +1,4 @@
 
-eval "$(mise activate zsh)"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/mc mc
@@ -7,3 +6,20 @@ complete -o nospace -C /opt/homebrew/bin/mc mc
 # peon-ping quick controls
 alias peon="bash {{ .chezmoi.homeDir }}/.claude/hooks/peon-ping/peon.sh"
 [ -f {{ .chezmoi.homeDir }}/.claude/hooks/peon-ping/completions.bash ] && source {{ .chezmoi.homeDir }}/.claude/hooks/peon-ping/completions.bash
+
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:{{ .chezmoi.homeDir }}/.lmstudio/bin"
+# End of LM Studio CLI section
+
+# >>> mise:activate >>> managed by mise — do not edit between markers
+eval "$(mise activate zsh)"
+# <<< mise:activate <<<
+
+# >>> otty shell integration >>>
+# Added by Otty — toggle in Settings > Shell > Shell Integration.
+# Inert unless launched by Otty (it sets $OTTY_SHELL_INTEGRATION).
+if [ -n "$ZSH_VERSION" ] && [ -n "$OTTY_SHELL_INTEGRATION" ] && [ -r "$OTTY_SHELL_INTEGRATION/otty-integration.zsh" ]; then
+  . "$OTTY_SHELL_INTEGRATION/otty-integration.zsh"
+fi
+# <<< otty shell integration <<<

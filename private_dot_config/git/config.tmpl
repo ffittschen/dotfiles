@@ -5,7 +5,8 @@
 	{{ else if .personal -}}
 	email = {{ (onepasswordDetailsFields "554xae6ewnhpjn4d3qji57bbpq" .personal_vault).username.value }}
 	{{ end -}}
-	signingkey = 3FCFFA810BECE56961D98C589D95E0A55BD2B364
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII7YXe2pppDnBfTcAyTZaMuIYD6nof8BdO4NQtwyYDbf
+	# signingkey = {{ .chezmoi.homeDir }}/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/PublicKeys/697ad4ac4ea4ad98bd9aee5cbcaa12b6.pub
 
 [core]
 	# Global `.gitignore`
@@ -38,10 +39,10 @@
 	helper = osxkeychain
 [credential "https://github.com"]
 	helper =
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !{{ .chezmoi.homeDir }}/.local/share/mise/shims/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper =
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !{{ .chezmoi.homeDir }}/.local/share/mise/shims/gh auth git-credential
 
 [diff]
 	# Use the slower but better patience diff algorithm
@@ -62,7 +63,11 @@
 	required = true
 
 [gpg]
-	program = /usr/local/bin/gpg
+	format = ssh
+
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	allowedSignersFile = ~/.config/git/allowed_signers
 
 [help]
 	# Autocorrect mistyped commands.
