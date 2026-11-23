@@ -28,7 +28,7 @@ Reproduce a problem locally before proposing a fix, and verify the fix the same 
 
 ## Superpowers
 
-Never stage, commit or push the specs and plans the superpowers skills write (`docs/superpowers/specs/`, `docs/superpowers/plans/` or similar), even when the skill says to. I review and stage them myself.
+**Superpowers specs and plans live in the personal wiki.** Write them to this repo's wiki folder from the session context, `~/Code/personal-wiki/projects/<project>/specs/` and `plans/`, never inside the project repo. The wiki plugin commits them in the wiki repo; never commit specs or plans to a project repo. This overrides the default locations in the brainstorming and writing-plans skills.
 
 ## Otty
 
