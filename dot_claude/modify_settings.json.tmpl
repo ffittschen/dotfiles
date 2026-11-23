@@ -24,11 +24,30 @@ managed='
 }
 '
 
+# Array entries added to whatever the live file already holds (deep merge replaces arrays)
+managed_arrays='
+{
+  "permissions": {
+    "additionalDirectories": ["~/Code/personal-wiki"],
+    "allow": ["Read(~/Code/personal-wiki/**)", "Edit(~/Code/personal-wiki/**)"]
+  },
+  "sandbox": {
+    "filesystem": {
+      "allowWrite": ["{{ .chezmoi.homeDir }}/Code/personal-wiki"]
+    }
+  }
+}
+'
+
 # Read current file from stdin; deep-merge managed keys so unmanaged ones survive,
 # including machine-local entries inside env and enabledPlugins
 current="$(cat)"
-if [ -n "$current" ]; then
-  echo "$current" | jq --argjson managed "$managed" '. * $managed'
-else
-  echo "$managed" | jq .
-fi
+[ -n "$current" ] || current='{}'
+echo "$current" | jq --argjson managed "$managed" --argjson arrays "$managed_arrays" '
+  def union($path): (getpath($path) // []) as $have
+    | setpath($path; $have + [($arrays | getpath($path))[] | select(. as $x | $have | index([$x]) | not)]);
+  (. * $managed)
+  | union(["permissions", "additionalDirectories"])
+  | union(["permissions", "allow"])
+  | union(["sandbox", "filesystem", "allowWrite"])
+'
