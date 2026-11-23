@@ -28,7 +28,7 @@ Reproduce a problem locally before proposing a fix, and verify the fix the same 
 
 ## Superpowers
 
-**Superpowers specs and plans live in the personal wiki.** Write them to this repo's wiki folder from the session context, `~/Code/personal-wiki/projects/<project>/specs/` and `plans/`, never inside the project repo. The wiki plugin commits them in the wiki repo; never commit specs or plans to a project repo. This overrides the default locations in the brainstorming and writing-plans skills.
+After `superpowers:subagent-driven-development` or `superpowers:executing-plans` finishes a plan, always run `superpowers:finishing-a-development-branch` next. As its Step 0, before anything else: mark the plan Implemented, then distill lasting decisions and gotchas from the plan and its spec into wiki pages with `/wiki:ingest <plan path>`.
 
 ## Otty
 
