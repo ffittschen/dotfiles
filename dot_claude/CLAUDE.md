@@ -26,4 +26,4 @@ Reproduce a problem locally before proposing a fix, and verify the fix the same 
 
 ## Superpowers
 
-After `superpowers:subagent-driven-development` or `superpowers:executing-plans` finishes a plan, always run `superpowers:finishing-a-development-branch` next. As its Step 0, before anything else: mark the plan Implemented, then distill lasting decisions and gotchas from the plan and its spec into wiki pages with `/wiki:ingest <plan path>`.
+After `superpowers:subagent-driven-development` or `superpowers:executing-plans` finishes a plan, always run `superpowers:finishing-a-development-branch` next. As its Step 0, before anything else: set the plan's status to `done` and finalize its Status block with the `wiki:progress` skill, update its spec's status, then distill lasting decisions and gotchas from the plan and its spec into wiki pages with `/wiki:ingest <plan path>`.
