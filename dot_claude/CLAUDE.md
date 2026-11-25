@@ -5,20 +5,18 @@
 - Read code from the current branch or worktree. Use `origin/main` only to compare against it or when I ask.
 - Explain a change in its commit message, not in comments added to the files.
 - **Secrets:** `fnox list` shows the named secrets; pass one with `fnox exec --only NAME -- <cmd>` rather than printing it with `fnox get`. If it isn't listed, ask me for its `op://` reference and read it with `op read`. fnox holds only the secrets we keep needing, so suggest adding one to `~/.config/fnox/config.toml` once it keeps coming up. `op read` appends a newline: strip it with `tr -d '\n'` before piping into `gh secret set`.
-- **Subagent models:** unless an agent's definition pins one, pass `model` on each Agent call, or the subagent runs on this session's model: `haiku` for searches, lookups and mechanical edits; `sonnet` for typical implementation, review and verification; `opus` or `fable` only for hard debugging or ambiguous design decisions.
+- **Subagent models:** unless an agent's definition pins one or it's a fork (forks always run on this session's model), pass `model` on each Agent call, or the subagent runs on this session's model: `haiku` for searches, lookups and mechanical edits; `sonnet` for typical implementation, review and verification; `opus` or `fable` only for hard debugging or ambiguous design decisions.
 
 ## Git
 
 - Check the current branch before starting work. Cut new branches from a freshly fetched `origin/<default>`, not from the current branch, unless I ask for that.
-- Create worktrees with `EnterWorktree(name: <full branch name>)`, also when a plan or skill says `git worktree add`. `EnterWorktree(path: …)` only enters an existing one.
+- Create worktrees with `EnterWorktree(name: <full branch name>)`, also when a plan or skill says `git worktree add`. `EnterWorktree(path: …)` only enters an existing one. It moves this whole session, so for parallel subagents on separate branches use `Agent(isolation: "worktree")`.
 - Stage files by explicit path, never with `git add -A` or `git add .`.
 - Commit messages follow Conventional Commits.
 
 ## CI & Pushing
 
 Run the local build, and tests if there are any, before every push.
-
-On a feature branch you or I created, once they pass, commit and push without asking. On a branch someone else created, ask before pushing. In a private or internal repo (`gh repo view --json visibility`), also open a draft PR with `/create-pr`, and end the turn by saying what you did rather than asking whether to. In a public repo, ask before opening the PR. Ask first before anything others would read as finished, or that is hard to undo: marking a PR ready, merging or enabling auto-merge, force-pushing anything other than `--force-with-lease` to a feature branch you or I created, deleting branches or worktrees, and posting reviews or comments under my account.
 
 **Stacks:** after rebasing a stack, run the full build and tests only on the top branch. For each lower branch, build and test only the targets its own diff touches.
 
